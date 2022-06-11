@@ -1,0 +1,24 @@
+.calculation_box.flex
+  .comment_container.flex-by-column
+    label(for="comment") description
+    textarea.comment.comment_input(placeholder="What is the Appropriate Description?")
+  //- show only in md and sm screen 
+  //- it use fro show comment textarea
+  button.show-comment.btn-show__md-screen
+    i.fa-solid.fa-comment
+
+  .calculation_container.flex-by-column
+    label(for="calculation") calculation
+    textarea.calculation(placeholder="Enter your calculation")
+    .error-message #Error
+  
+  .result_container
+    .result 0
+    .variable_container.flex
+      label(for="variable") Variable Name
+      input.variable(type="text",placeholder="any name you want" )
+      .error-message #Error
+    //- show only in md and sm screen 
+    //- it use fro show variable input
+    button.show-variable.btn-show__md-screen
+      i.fa-solid.fa-share-from-square

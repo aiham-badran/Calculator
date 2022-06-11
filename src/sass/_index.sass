@@ -1,0 +1,229 @@
+@use  "./tools/values" as *
+@use "./tools/placeholder" as *
+
+
+// navbar 
+
+nav.navbar
+  
+  background-color: #eee
+  min-height: 60px
+  padding: 
+    top: 8px
+    bottom: 8px
+
+  @extend %box-shadow-lite
+
+  .navbar__inside
+    display: flex
+    justify-content: space-between
+    align-items: center
+    
+    position: relative
+
+    .logo
+      font-size: 2.5rem
+      font-weight: 700
+      color: var(--primary-color)
+    
+    #btn__open-menu
+      font-size: 1.2rem
+      background-color: transparent
+      color:#333
+      padding: .9em 2em 0
+      &:hover
+        color: var(--primary-color)
+
+    ul.menu
+    
+      background-color: #eee
+    
+      position: absolute
+      top:54px
+      right: 40px
+
+      border-bottom-left-radius: 5px 
+      border-bottom-right-radius: 5px 
+
+      transition: opacity .7s
+      transform: scale(0)
+      opacity: 0
+      z-index: 9999
+      
+      li
+        text-transform: capitalize
+        color: #333
+      
+        display: flex
+        align-items: baseline
+        padding: .5em 2em
+        
+        cursor: pointer
+        &:hover
+          color: var(--primary-color)
+        
+        i
+          order: 2
+          padding: .3em
+
+// ###################
+
+// main
+
+main
+  padding:
+    top: 3em
+    bottom: 3em
+  .calculation_box
+    --gap:2rem
+    margin-bottom: 2em
+    position: relative
+
+    & > div
+      --gap:.8rem
+
+    @media (max-width:992px) 
+      flex-direction: column
+    
+    
+    label
+      font-size: 1rem
+      text-transform: capitalize
+      color: var(--primary-color)
+      padding-inline: .5em
+      
+
+
+
+    textarea
+      resize: none
+      height: 10em 
+      
+    textarea,
+    input
+      border: none
+      border-radius: 5px
+      box-shadow: 0 0 5px  1px rgba($black-color,0.1 )
+      width: 100%
+      padding: 1em
+
+      &:focus
+        box-shadow: 0 0 5px  1px rgba($black-color,0.3 )
+      
+    .comment_container
+      flex-grow: 1
+      position: relative
+
+      @media (max-width:992px) 
+        background-color: #fff
+        width: 100%
+        margin-inline:0.3em
+        position: absolute
+        transform: scale(0)
+        transition: transform .1s linear
+
+        &.enable-comment
+          transform: scale(1)
+    
+    .calculation_container
+      flex-grow: 3
+      @media (max-width:992px) 
+        margin-inline:0.3em
+        
+      
+    .result_container
+      font-size: 1.5rem
+      font-weight: bold
+      color: var(--primary-color)
+      margin:
+        top: 1.2em
+      position: relative
+
+      @media (max-width:992px) 
+        font-size: 1.9rem
+        margin:
+          top: 0
+          bottom: 1em
+
+        text-align: center
+        
+      .variable_container
+        flex-wrap: wrap
+        align-items: center
+        margin-top: 1.7em
+        position: relative
+
+        &::after
+          // content: "?"
+          font-size: .7rem
+          color: #fff
+          background-color: #999
+          border-radius: 50%
+          width: 14px
+          height: 14px
+          margin-inline: .2em
+          padding-top: 0.15em
+          display: inline-flex
+          justify-content: center
+          align-items: center
+          cursor: pointer
+
+        label
+          font-size: .9rem
+          font-weight: normal
+        input
+          width: 50%
+
+        
+        @media (max-width:992px) 
+          flex-direction: column
+          align-items: flex-start
+          background-color: #fff
+          width: 100%
+          margin:0 .3em
+
+          position: absolute
+          top:-5px
+          left: 0
+          transform: scale(0)
+          transition: transform .1s linear
+          input
+            width: 100% !important
+          &::after
+            position: absolute
+            right: 0
+          &.enable-variable
+            transform: scale(1)
+
+      
+    .btn-show__md-screen
+      // display: none
+      color: #fff
+      background-color: var(--primary-color)
+      padding-block: .3em
+      padding-inline: .5em
+      border-radius: 5px
+      position: absolute
+      top: 0
+      left: -30px
+      transform: scale(0)
+      
+      @media (max-width:992px) 
+        transform: scale(1)
+    
+  .new_calculation
+    button
+      font-size: 1rem
+      font-weight: bold
+      text-transform: capitalize
+      border-radius: 5px
+      box-shadow: 0 0 5px 0 rgba($black-color,0.3 )
+      width: 60%
+      padding: 1.2em 1.5em
+
+      &:hover
+        background-color: var(--primary-color)
+        color: #eee
+
+      @media (max-width:992px) 
+        width: 95%

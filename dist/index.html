@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="./css/assets.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="./js/calculation.js" defer></script>
+    <script src="./js/main.js" defer> </script>
+  </head>
+  <body>
+    <nav class="navbar"> 
+      <div class="navbar__inside container">
+        <div class="logo">Calculator </div>
+        <button id="btn__open-menu"><i class="fa-solid fa-bars"></i></button>
+        <ul class="menu flex-by-column">
+          <li id="info"> <i class="fa-solid fa-circle-info"></i><span>file info</span></li>
+        </ul>
+      </div>
+    </nav>
+  </body>
+  <main> 
+    <div class="container">
+      <div class="new_calculation flex-center-box">
+        <button>add new calculation</button>
+      </div>
+    </div>
+  </main>
+  <template id="calculation-template">
+    <div class="calculation_box flex">
+      <div class="comment_container flex-by-column">
+        <label for="comment">description</label>
+        <textarea class="comment comment_input" placeholder="What is the Appropriate Description?"></textarea>
+      </div>
+      <button class="show-comment btn-show__md-screen"><i class="fa-solid fa-comment"></i></button>
+      <div class="calculation_container flex-by-column">
+        <label for="calculation">calculation</label>
+        <textarea class="calculation" placeholder="Enter your calculation"></textarea>
+        <div class="error-message">#Error</div>
+      </div>
+      <div class="result_container">
+        <div class="result">0</div>
+        <div class="variable_container flex">
+          <label for="variable">Variable Name</label>
+          <input class="variable" type="text" placeholder="any name you want">
+          <div class="error-message">#Error</div>
+        </div>
+        <button class="show-variable btn-show__md-screen"><i class="fa-solid fa-share-from-square"></i></button>
+      </div>
+    </div>
+  </template>
+</html>

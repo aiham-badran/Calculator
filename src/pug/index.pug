@@ -1,0 +1,53 @@
+include ./global/values
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        //- title 
+        title Calculator
+
+        //- css file
+        //- assets file : has all libraries using in app
+        //- : fontawesome v6
+        link(rel="stylesheet", href="./css/assets.css") 
+        //- main css style
+        link(rel="stylesheet", href="./css/main.css")
+
+        //-js file 
+        script(src="./js/calculation.js" defer)
+        //- main js 
+        script(src="./js/main.js"  defer) 
+        
+    body
+      //- navbar
+      //- this is in top of the page has a logo and menu 
+      nav.navbar 
+        .navbar__inside.container
+          .logo Calculator 
+
+          button#btn__open-menu
+            i.fa-solid.fa-bars
+          ul.menu.flex-by-column
+            li#info 
+              i.fa-solid.fa-circle-info
+              span file info
+            //- li#settings(onclick="console.log('settings')")
+            //-   i.fa-solid.fa-gear
+            //-   span Settings
+
+    //- #####################
+    
+    //- main 
+    main  
+      .container
+        //- include ./components/calc_template.pug
+            
+      
+        .new_calculation.flex-center-box
+          button add new calculation
+
+    //- template of calculation section using in js for crate new section
+    template#calculation-template
+      include ./components/calc_template.pug
