@@ -29,7 +29,7 @@ exports.build = async function (done) {
   await deleteFolder("./dist")
 
 
-  series(pug, parallel(sass, js))(done)
+  series(pug, parallel(sass, js), parallel(copy, cleanUnusedClasses))(done)
 
   done()
 }
