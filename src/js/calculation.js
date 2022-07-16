@@ -50,7 +50,7 @@ class Calculation {
     if (this.Variables[key])
       return true
 
-    return false
+    return false;
   }
 
   /**

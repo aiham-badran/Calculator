@@ -1,0 +1,10 @@
+
+@mixin text($text) {
+  
+  @if(index($text, "text--center")){
+    .text--center{
+      text-align: center;
+    }
+  }
+
+}

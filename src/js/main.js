@@ -1,143 +1,91 @@
+const SelectEl = el => document.querySelector(el)
+
+// elements
+const result_ele = SelectEl(`.result__calculation`),
+
+  calculationInput = SelectEl("#calculation"),
+  variableInput = SelectEl("#variable"),
+  descInput = SelectEl("#note"),
+
+  errorCalc = SelectEl(".message__input__calculation"),
+  errorVar = SelectEl(".message__variable"),
+
+
+  listHistory = SelectEl(".history .list__history"),
+  emptyHistory = SelectEl(".empty__history"),
+  templateHistoryItem = SelectEl("#item__history__template").content
+
+// 
+const calc = new Calculation()
+
+
+// has all calculation saved in app
+const historyLists = {}
+
+let currentid,
+  currentResult = "0",
+  variableExist = false
+
+// whe dom loaded 
 document.addEventListener("DOMContentLoaded", app)
 
 function app() {
 
-  // when click in any point in page
-  document.addEventListener("click", on_click_document)
-
-  // when click on the btn__openMenu button 
-  // show menu
-  const btn__openMenu = document.querySelector("#btn__open-menu")
-  const nav__menu = document.querySelector(".menu")
-
-  btn__openMenu.addEventListener("click", () => {
-    nav__menu.style.transform = "scale(1)"
-    nav__menu.style.opacity = "1"
-  })
-
-
-  create_calculation_section()
-
-  // create new calculation div
-  const btn_add_new = document.querySelector(".new_calculation button")
-  btn_add_new.addEventListener("click", create_calculation_section)
-}
-
-function on_click_document({
-  target
-}) {
-
-  const nav__menu = document.querySelector(".menu")
-
-  // close menu in navbar if is opened 
-  if (!target.closest("#btn__open-menu")) {
-    nav__menu.style.transform = "scale(0)"
-    nav__menu.style.opacity = "0"
-  }
-
-  // in small screen
-
-  // hide variable input when click any where in the page 
-  const enable_variable = document.querySelector(".enable-variable")
-  if (!target.closest(".result_container") && enable_variable)
-    enable_variable.classList.remove("enable-variable")
-
-  // hide comment textarea when click any where in the page 
-  const enable_comment = document.querySelector(".enable-comment")
-  if ((!target.closest(".comment_container") && !target.closest(".show-comment")) && enable_comment)
-    enable_comment.classList.remove("enable-comment")
-
-}
-
-let calculation_section_id = 1
-
-function create_calculation_section() {
-  const clone_calc_template = document.querySelector("#calculation-template").content.cloneNode(true),
-    new_calculation_container = document.querySelector(".new_calculation")
-
-  // show variable input 
-  const btn_variable = clone_calc_template.querySelector(".show-variable")
-  btn_variable.addEventListener("click", toggle_variable_input)
-
-  // show comment textarea 
-  const btn_comment = clone_calc_template.querySelector(".show-comment")
-  btn_comment.addEventListener("click", toggle_comment_input)
-
-
-  clone_calc_template.querySelector(".result").dataset.id = calculation_section_id
-
-  const calculationInput = clone_calc_template.querySelector(".calculation")
-  calculationInput.dataset.id = calculation_section_id
+  // calculation process
   calculationInput.addEventListener("input", calculation_process)
 
-  const variableInput = clone_calc_template.querySelector(".variable")
-  variableInput.dataset.id = calculation_section_id
+  // input variable name 
   variableInput.addEventListener("input", variable_process)
 
-  new_calculation_container.before(clone_calc_template)
-  calculation_section_id++
+  // open history section in sm screen 
+  SelectEl(".calculator .show-history-mb").addEventListener("click", () => document.querySelector(".history").classList.add("open__history"))
+
+  // close history section in sm screen 
+  SelectEl(".history .close-history-mb").addEventListener("click", () => document.querySelector(".history").classList.remove("open__history"))
+
+  //  save calculation
+  SelectEl(".calculator .btn__save").addEventListener("click", registerItem)
+
+  // clean all input element
+  SelectEl(".btn__clean").addEventListener("click", resetFrom)
+
 
 }
+
+
+
 
 // ---- start calculation process
 
-const calc = new Calculation()
 let setTimeInputCalculation
 
 function calculation_process({
   target
 }) {
-  let id = target.dataset.id
-  const errorElement = target.parentElement.querySelector(".calculation_container .error-message")
-  const result_ele = document.querySelector(`.result[data-id='${id}']`)
-  const var_input = document.querySelector(`.variable[data-id='${id}']`)
 
-  errorElement.textContent = ""
+
+  const value = target.value
+
+  errorCalc.textContent = ""
   clearTimeout(setTimeInputCalculation)
 
 
   setTimeInputCalculation = setTimeout(async () => {
     try {
 
-      let result = await calc.process(target.value),
-        key = var_input.value
+      let result = await calc.process(value)
 
-      if (key) {
+      let key = variableInput.value
+      if (key) Calculation.setVar(key, result)
 
-        Calculation.setVar(key, result)
-
-        // if (Calculation.isVarExist(key)) {
-        //   calcAllSections(id)
-        // }
-      }
-
-      result_ele.textContent = result || '0'
+      result_ele.textContent = currentResult = result || '0'
 
     } catch (error) {
 
-      errorElement.textContent = error.message
-      errorElement.style.transform = "scale(1)"
+      errorCalc.textContent = error.message
 
     }
   }, 1200)
-
-}
-
-function calcAllSections(textareaId) {
-
-  let allCalculationBox = document.querySelectorAll(".calculation_box")
-
-  allCalculationBox.forEach(async el => {
-
-    let textarea = el.querySelector(".calculation")
-    // if (textarea.id == textareaId)
-    //   return
-
-    let result = await calc.process(textarea.value)
-    el.querySelector(".result").textContent = result || 0
-    if (el.querySelector(".variable").value)
-      Calculation.setVar(el.querySelector(".variable").value, result)
-  })
 }
 
 let setTimeInputVariable
@@ -154,48 +102,116 @@ function variable_process({
 
   setTimeInputVariable = setTimeout(() => {
 
-    const errorElement = target.parentElement.querySelector(".variable_container .error-message")
-    const result_ele = document.querySelector(`.result[data-id='${target.dataset.id}']`)
 
-    errorElement.textContent = " "
-
-    if (Calculation.isVarExist(key)) {
-      errorElement.style.transform = "scale(1)"
-      errorElement.textContent = "The variable exists, it will be overwrite"
-    }
+    errorVar.textContent = ""
 
     try {
-      Calculation.setVar(key, result_ele.textContent)
+
+      if (Calculation.isVarExist(key))
+        throw new Error("The variable exists, try another one")
+
+      Calculation.setVar(key, currentResult)
+      variableExist = false
+      currentid = null
 
     } catch (error) {
-      errorElement.style.transform = "scale(1)"
-      errorElement.textContent = error.message
+      variableExist = true
+      errorVar.textContent = error.message
     }
-
-
-
   }, 1200)
+}
+
+//  Register a new item in history
+function registerItem() {
+
+  currentid = currentid || Math.ceil(Math.random() * 100) + Date.now()
+
+
+  historyLists[currentid] = {
+    result: currentResult ?? "0",
+    calc: calculationInput.value ?? "0",
+    desc: descInput.value ?? "",
+    variable: variableInput.value ?? ""
+  }
+
+  createHistoryItem(historyLists[currentid], currentid)
+}
+
+// create new item in history
+function createHistoryItem(data, id) {
+
+  if (calculationInput.value.trim() === "" || variableExist) return
+
+  if (emptyHistory.classList.contains("show__empty__history"))
+    emptyHistory.classList.remove("show__empty__history")
+
+  const currentLi = SelectEl(`li[data-id="${id}"]`)
+
+  let liClone
+
+  if (currentLi) {
+    liClone = currentLi
+  } else {
+
+    liClone = templateHistoryItem.cloneNode(true)
+    // add attribute
+    liClone.querySelector("li").dataset.id = id
+
+    // set event
+    // edit calc
+    liClone.querySelector(".btn__edit").addEventListener("click", editCalc)
+    // delete calc
+    liClone.querySelector(".btn__del").addEventListener("click", deleteCalc)
+  }
+
+  // add data
+  liClone.querySelector(".variable__item").textContent = data.variable + " = "
+  liClone.querySelector(".result__item").textContent = data.result
+  liClone.querySelector(".note__item__history").textContent = data.desc
+
+
+  listHistory.prepend(liClone)
+  resetFrom()
 
 }
 
-// for mobile
+// edit calc item by id
+function editCalc({ target }) {
+  const el = target.closest(".item__history")
+  currentid = el.dataset.id
 
-function toggle_comment_input({
-  currentTarget
-}) {
-  const enable_comment = document.querySelector(".enable-comment")
-  if (enable_comment)
-    enable_comment.classList.remove("enable-comment")
-  const comment_container = currentTarget.parentElement.querySelector(".comment_container")
-  comment_container.classList.toggle("enable-comment")
+  initFrom(historyLists[currentid])
+
 }
 
-function toggle_variable_input({
-  currentTarget
-}) {
-  const enable_variable = document.querySelector(".enable-variable")
-  if (enable_variable)
-    enable_variable.classList.remove("enable-variable")
-  const comment_container = currentTarget.parentElement.querySelector(".variable_container")
-  comment_container.classList.toggle("enable-variable")
+// delete calc item in history list by id 
+function deleteCalc({ target }) {
+  const el = target.closest(".item__history")
+  id = el.dataset.id
+
+  delete historyLists[id]
+  el.remove()
+
+  if (Object.keys(historyLists).length < 1)
+    emptyHistory.classList.add("show__empty__history")
+
+  resetFrom()
+}
+
+// clean all from input element
+function initFrom(data = {}) {
+
+  calculationInput.value = data.calc ?? ""
+  variableInput.value = data.variable ?? ""
+  descInput.value = data.desc ?? ""
+  errorCalc.textContent = data.calcErr ?? ""
+  errorVar.textContent = data.varErr ?? ""
+  result_ele.textContent = data.result ?? "0"
+
+}
+
+// clean all from input element
+function resetFrom() {
+  initFrom()
+  currentid = null
 }

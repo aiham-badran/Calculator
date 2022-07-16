@@ -1,0 +1,7 @@
+//- check if links array is exist
+//- then create all links tag 
+//- and the default rel is stylesheet 
+
+if links
+  each link in links
+    link(rel= link.rel ? link.rel : "stylesheet", href=link.href)

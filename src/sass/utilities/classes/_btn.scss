@@ -1,0 +1,84 @@
+@use "../values" as var;
+
+@mixin btn($btn) {
+  
+  @if(index($btn, "btn")){
+    .btn{
+      text-transform: capitalize;
+      border-radius: 8px;
+      border-color: transparent;
+      padding: .375em .75em;
+      box-shadow: 0 0 4px -1px rgba(0, 0, 0, .2);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      
+      cursor: pointer;
+      transition: all .15s;
+    }
+  }
+
+  @if(index($btn, "btn--flat")){
+    .btn--flat{
+      border-radius: 1px;
+    }
+  }
+
+  @if(index($btn, "btn--gray" )){
+    .btn--gray{
+      background-color: var.$gray;
+      color: var.$black-800;
+    }
+  }
+
+  @if(index($btn, "btn--xxl" )){
+    .btn--xxl{
+      font-size: 1.75rem;
+      padding: .7em 1.4em 
+    }
+  }
+
+  @if(index($btn, "btn--xl" )){
+    .btn--xl{
+      font-size: 1.5rem;
+      padding: .6em 1.2em 
+    }
+  }
+
+  @if(index($btn, "btn--lg" )){
+    .btn--lg{
+      font-size: 1.25rem;
+      padding: .5em 1em 
+    }
+  }
+
+  @if(index($btn, "btn--md" )){
+    .btn--md{
+      font-size: 1rem;
+      padding: .375em .75em;
+    }
+  }
+
+  @if(index($btn, "btn--sm" )){
+    .btn--sm{
+      font-size: .75rem;
+      padding: .3em .75em 
+    }
+  }
+
+  @if(index($btn, "btn--xs" )){
+    .btn--xs{
+      font-size: .65rem;
+      padding: .275em .75em 
+    }
+  }
+
+  @if(index($btn, "btn--icon" )){
+    .btn--icon{
+      font-size: .85rem;
+      width:2.75em;
+      height: 2.75em;    
+    }
+  }
+}
+

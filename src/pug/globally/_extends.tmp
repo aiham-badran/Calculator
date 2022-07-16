@@ -1,0 +1,7 @@
+extends ./globally/_base
+
+block vars
+  include ./_variables
+
+prepend body
+  

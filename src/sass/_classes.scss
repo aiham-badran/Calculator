@@ -1,0 +1,27 @@
+@use "./vars";
+@use "./utilities/layout";
+@use "./utilities/classes";
+
+// container class
+@include layout.container(960px);
+
+// grid layout - by flex
+@include layout.grid(vars.$grid-cols);
+
+// flex class
+@include layout.flex(vars.$flex-class);
+
+// global class
+
+// text classes
+@include classes.text(vars.$text);
+// button classes
+@include classes.btn(vars.$btn);
+
+
+// app classes
+.message--error{
+  font-size: .90rem;
+  padding: .5em .75em;
+  color: #b3362d;
+}

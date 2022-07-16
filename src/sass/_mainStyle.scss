@@ -1,0 +1,281 @@
+// placeholder
+%section {
+  padding: .25em 1.25em;
+}
+
+%to_right{
+  text-align: right;
+}
+
+%btn{
+  border-radius: 50%;
+  color: #eee;
+  background-color: var(--primary-color);
+  &:hover{
+    box-shadow: 0 0px 6px -1px rgba(#000000,.2);
+    color: #fff;
+    filter: opacity(.8)
+  }
+}
+
+%label{
+  @extend %heading-color;
+  font-size: .95rem;
+  text-transform: capitalize;
+  padding: .55em;
+  text-shadow: 0 0 4px rgba(#222, .1);
+}
+
+%input{
+  border-color: transparent;
+  border-radius: 8px;
+  box-shadow:  0 0px 3px 0px  rgba(#000000, .2);
+  padding: .75em;
+}
+
+%heading-color{
+  color:var(--font-color);
+}
+
+// styling
+
+main {
+
+  min-height: 100vh;
+  
+  
+  .content__main{
+    background-color: #fefefe;
+    border-radius: 8px;
+    box-shadow:  0 0px 6px 0px  rgba(#fff, .4);
+    min-height: 95vh;
+    min-width: 70vw;
+    position: relative;
+    @media (max-width:912px) {
+      min-width: 90vw; 
+    }
+
+    .header {
+    
+      padding: 1em 1.2em;
+      margin-bottom: .75em;
+      box-shadow:  0 2.5px 4px -3px  rgba(#000000, .2);
+      
+      .brand{
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        color: transparent;
+        letter-spacing: 3px;
+        background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+        background-clip: text;
+        text-shadow: 0 0 4px rgba(#222, .1)
+
+      }
+      // ---- End brand
+    }
+    // ---- End header
+
+    .calculator{
+      @extend %section;
+
+      .controller{
+
+        .list__controller{
+          display:  flex;
+          align-items: center;
+          position: relative;
+
+          .item__controller{
+            @extend %to_right;
+            padding: 0 .4em;
+            
+            &.show-history-mb{
+              
+              display: none;
+              order: 1;
+              position: absolute;
+              right: 0;
+              top : 5px;
+              color:var(--font-color);
+
+              @media (max-width:767px) {
+                display: inline-block
+              }
+            }
+            // ---- Emd show-history-mb
+
+            .btn{
+              @extend %btn;
+            }
+            // ---- End btn__controller
+          }
+          // ---- End item__controller
+        }
+        // ---- End list__controller
+      }
+      // ---- End controller
+
+      .calculation{
+        margin-bottom: 2rem;
+        
+        .result__calculation{
+          @extend %to_right;
+          @extend %heading-color;
+          font-size: 2.5rem;
+          font-weight: bold;
+          margin: {
+            top: .25em;
+            bottom: .25em;
+            right: .1em
+          }
+        }
+        // ---- End result__calculation
+
+        .input__calculation{
+          textarea{
+            @extend %input;
+            width: 100%;
+            max-height: 90px;
+            
+          }
+        }
+        // ---- End input__calculation
+      }
+      // ---- End calculation
+
+      .extensions{
+        .variable__extensions{
+          label{
+            @extend %label;
+          }
+          input{
+            @extend %input;
+          }
+        }
+        // ---- End  variable__extensions
+
+        .notes__extensions{
+          margin-top: 1em;
+          label{
+            @extend %label;
+          }
+
+          textarea{
+            @extend %input;
+            width: 100%;
+            max-height: 100px
+          }
+        }
+        // ---- End notes__extensions
+      }
+      //---- End extensions
+    }
+    // ---- End calculator
+    
+    .history{
+      @extend %section;
+      min-height: 80vh;
+      overflow-y: auto;
+
+      @media (max-width:767px) {
+        background-color: #fefefe;
+        min-width: calc(100% - 20px);
+        height: 85vh;
+        position: absolute;
+        transform:translateX(1000px) scale(0);
+        transition: transform .5s .2s linear;
+        z-index: 99;
+      }
+
+      &.open__history{
+        @media (max-width:767px) {
+          transform:translateX(-10px);
+        }
+      }
+
+      .header__history{
+        color:var(--font-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+        .close-history-mb{
+              
+          display: none;
+          @media (max-width:767px) {
+            display: inline-block
+          }
+        }
+      }
+
+      // ---- End header__history
+
+      .empty__history{
+        color:var(--primary-color);
+        padding: 2em 0;
+        display: none;
+
+        i{
+          font-size: 1.2rem;
+          padding: 0 .5em;
+        }
+        p{ 
+          font-size: 1.4rem;
+        }
+
+        &.show__empty__history{
+          display: flex;
+        }
+      }
+      // ---- End empty__history
+
+      .item__history{
+        box-shadow: 0 2px 4px -3px rgba(#000000, .2);
+        padding: 1.2em .1em;
+        margin-bottom: .5em;
+
+        .controller__item__history{
+          @extend %to_right;
+          .btn{
+            @extend %btn;
+            margin: {
+              left: .25em;
+              right: .25em;
+              bottom:.3em
+            } ;
+          }
+        }
+        // ---- End controller__item__history
+
+        .result__item__history{
+          @extend %heading-color;
+          margin-bottom: .5em;
+          
+          .variable__item{
+            font-size: 1.3rem;
+            padding-bottom: .05em;
+          }
+          // ---- End variable__item
+
+          .result__item {
+            font-size: 1.8rem;
+            font-weight: bold;
+          }
+          // ---- End result__item
+        }
+        // ---- End result__item__history
+      }
+      // ---- End item__history
+    }
+    // ---- End history
+
+  }
+  // ---- End content__main
+
+}
+// ---- End main
+
+.footer{
+  padding: 2em;
+}

@@ -1,0 +1,33 @@
+@mixin form($form) {
+
+  @if(index($form, "from--group" )){
+    .from--group{
+      display: flex;
+      padding: .25em;
+    }
+  }
+
+  @if(index($form, "input" )){
+    .input{
+      font-size: 1rem;
+      border: 1px solid transparent;
+      
+      display: inline-block;
+      width: 100%;
+      padding: .35em .75em;
+      outline: none;
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+  
+  @if(index($form, "input--xl" )){
+    .input--xl{
+      font-size: 1.6rem;
+      padding: .6em .1.2em;
+      
+    }
+  }
+  
+}

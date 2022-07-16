@@ -1,0 +1,10 @@
+@mixin container($max-width:960px) {
+  .container{
+    max-width: $max-width;
+    margin: auto;
+    padding: {
+      right: 1rem;
+      left:1rem
+    }      
+  }
+}

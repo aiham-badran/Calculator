@@ -1,0 +1,42 @@
+
+
+%flex{
+  display: flex;
+}
+
+@mixin flex($flexList) {
+
+  // flex
+  @if index($flexList,"d-flex"){
+    .d-flex{
+      @extend %flex;
+    }
+  }
+
+  // f-column : using flex with column
+  @if(index($flexList, "f-column" )){
+    .f-column{
+      @extend %flex;
+      flex-direction: column
+    }
+  }
+
+  // justify--between
+  @if index($flexList,"justify--between"){
+    .justify--between{
+      @extend %flex;
+      justify-content: space-between;
+    }
+  }
+
+  // center--box 
+
+  @if index($flexList,"center--box"){
+    .center--box{
+      @extend %flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+}

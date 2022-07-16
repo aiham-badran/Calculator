@@ -4,51 +4,71 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
-    <link rel="stylesheet" href="./css/assets.css">
-    <link rel="stylesheet" href="./css/main.css">
-    <script src="./js/calculation.js" defer></script>
-    <script src="./js/main.js" defer> </script>
+    <title>index page</title>
+    <link rel="stylesheet" href="./assets/css/main.css">
   </head>
-  <body>
-    <nav class="navbar"> 
-      <div class="navbar__inside container">
-        <div class="logo">Calculator </div>
-        <button id="btn__open-menu"><i class="fa-solid fa-bars"></i></button>
-        <ul class="menu flex-by-column">
-          <li id="info"> <i class="fa-solid fa-circle-info"></i><span>file info</span></li>
-        </ul>
-      </div>
-    </nav>
-  </body>
-  <main> 
-    <div class="container">
-      <div class="new_calculation flex-center-box">
-        <button>add new calculation</button>
-      </div>
-    </div>
-  </main>
-  <template id="calculation-template">
-    <div class="calculation_box flex">
-      <div class="comment_container flex-by-column">
-        <label for="comment">description</label>
-        <textarea class="comment comment_input" placeholder="What is the Appropriate Description?"></textarea>
-      </div>
-      <button class="show-comment btn-show__md-screen"><i class="fa-solid fa-comment"></i></button>
-      <div class="calculation_container flex-by-column">
-        <label for="calculation">calculation</label>
-        <textarea class="calculation" placeholder="Enter your calculation"></textarea>
-        <div class="error-message">#Error</div>
-      </div>
-      <div class="result_container">
-        <div class="result">0</div>
-        <div class="variable_container flex">
-          <label for="variable">Variable Name</label>
-          <input class="variable" type="text" placeholder="any name you want">
-          <div class="error-message">#Error</div>
+  <body> 
+    <main class="main center--box">
+      <div class="content__main">
+        <header class="header container">
+          <div class="brand"> <i class="fa-solid fa-calculator"></i>Calculator</div>
+        </header>
+        <div class="container">
+          <div class="row"> 
+            <section class="calculator col-12 col-md-6">
+              <nav class="controller"> 
+                <ul class="list__controller">
+                  <li class="item__controller show-history-mb">Show History</li>
+                  <li class="item__controller">
+                    <button class="btn__clean btn btn--icon btn--xs"> <i class="fa-solid fa-c"></i></button>
+                  </li>
+                  <li class="item__controller">
+                    <button class="btn__save btn btn--icon btn--xs"> <i class="fa-solid fa-floppy-disk"></i></button>
+                  </li>
+                </ul>
+              </nav>
+              <section class="calculation"> 
+                <p class="result__calculation">0</p>
+                <div class="input__calculation"> 
+                  <textarea id="calculation" name="calc"> </textarea><small class="message--error message__input__calculation"> </small>
+                </div>
+              </section>
+              <section class="extensions">
+                <div class="variable__extensions f-column">
+                  <label for="variable">variable name </label>
+                  <input id="variable" type="text" name="variable" placeholder=""><small class="message--error message__variable"> </small>
+                  <div class="notes__extensions f-column">
+                    <label for="note">note </label>
+                    <textarea id="note" name="note" cols="30" rows="10"> </textarea><small class="message--error message__note"> </small>
+                  </div>
+                </div>
+              </section>
+            </section>
+            <section class="history col-12 col-md-6">
+              <div class="header__history">
+                <h2>List of calculation</h2><i class="fa-solid fa-arrow-right close-history-mb"></i>
+              </div>
+              <div class="empty__history center--box show__empty__history"><i class="fa-solid fa-ban"></i>
+                <p>There are no calculations to view</p>
+              </div>
+              <ul class="list__history"> 
+                <template id="item__history__template">
+                  <li class="item__history">
+                    <nav class="controller__item__history">
+                      <button class="btn__edit btn btn--icon btn--xs"> <i class="fa-solid fa-pen"></i></button>
+                      <button class="btn__del btn btn--icon btn--xs"> <i class="fa-solid fa-trash-can"></i></button>
+                    </nav>
+                    <div class="result__item__history"> <span class="variable__item"></span><span class="result__item"></span></div>
+                    <p class="note__item__history"></p>
+                  </li>
+                </template>
+              </ul>
+            </section>
+          </div>
         </div>
-        <button class="show-variable btn-show__md-screen"><i class="fa-solid fa-share-from-square"></i></button>
       </div>
-    </div>
-  </template>
+    </main>
+    <footer class="footer text--center">2022 &copy; <a href="#">By Aiham Badran</a></footer>
+    <script src="./assets/js/main.js"> </script>
+  </body>
 </html>

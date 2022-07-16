@@ -1,0 +1,15 @@
+// map has cols for grid layout
+$grid-cols: ("col":(12),"md":(6));
+
+// list has tag want to reset 
+$restItems:("a","ul","button","input","textarea");
+
+// list has flex class
+$flex-class: ("f-column","justify--between","center--box");
+
+// list of text classes
+$text:("text--center");
+
+// list of btn classes
+$btn:("btn","btn--sm","btn--xs","btn--icon")
+

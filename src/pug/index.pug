@@ -1,53 +1,116 @@
-include ./global/values
-doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        //- title 
-        title Calculator
+extends ./globally/_base
 
-        //- css file
-        //- assets file : has all libraries using in app
-        //- : fontawesome v6
-        link(rel="stylesheet", href="./css/assets.css") 
-        //- main css style
-        link(rel="stylesheet", href="./css/main.css")
+block vars
+  include ./_vars
 
-        //-js file 
-        script(src="./js/calculation.js" defer)
-        //- main js 
-        script(src="./js/main.js"  defer) 
-        
-    body
-      //- navbar
-      //- this is in top of the page has a logo and menu 
-      nav.navbar 
-        .navbar__inside.container
-          .logo Calculator 
-
-          button#btn__open-menu
-            i.fa-solid.fa-bars
-          ul.menu.flex-by-column
-            li#info 
-              i.fa-solid.fa-circle-info
-              span file info
-            //- li#settings(onclick="console.log('settings')")
-            //-   i.fa-solid.fa-gear
-            //-   span Settings
-
-    //- #####################
-    
-    //- main 
-    main  
-      .container
-        //- include ./components/calc_template.pug
-            
+prepend body
+  main.main.center--box
       
-        .new_calculation.flex-center-box
-          button add new calculation
+    .content__main
+      
+      header.header.container
+        .brand 
+          i.fa-solid.fa-calculator
+          |Calculator
 
-    //- template of calculation section using in js for crate new section
-    template#calculation-template
-      include ./components/calc_template.pug
+      //- ---- End header
+      
+      .container
+        .row 
+          //- calculator
+          section.calculator.col-12.col-md-6
+
+            //- calculator controller
+            nav.controller 
+              ul.list__controller
+                li.item__controller.show-history-mb
+                  | Show History
+                li.item__controller
+                  button.btn__clean.btn.btn--icon.btn--xs 
+                    i.fa-solid.fa-c
+                li.item__controller
+                  button.btn__save.btn.btn--icon.btn--xs 
+                    i.fa-solid.fa-floppy-disk
+            //- ---- End controller
+
+            //- calculation
+            section.calculation 
+              p.result__calculation 0
+              .input__calculation 
+                textarea#calculation(name="calc") 
+                small.message--error.message__input__calculation 
+
+
+            //- ---- End calculation
+
+            //- extensions 
+            section.extensions
+              .variable__extensions.f-column
+                label(for="variable") variable name 
+                input#variable(type="text" name="variable" placeholder="")
+                small.message--error.message__variable 
+
+                .notes__extensions.f-column
+                  label(for="note") note 
+                  textarea#note(name="note", cols="30", rows="10") 
+                  small.message--error.message__note 
+
+          
+            //- End extensions  
+          
+          //- ---- End calculator
+
+          //- History
+          section.history.col-12.col-md-6
+            .header__history
+              h2 List of calculation
+              i.fa-solid.fa-arrow-right.close-history-mb
+
+            .empty__history.center--box.show__empty__history
+              i.fa-solid.fa-ban
+              p There are no calculations to view
+
+            //- list of history
+            ul.list__history 
+
+              template#item__history__template
+                //- item in history
+                li.item__history
+                
+                  //- controller btns  
+                  nav.controller__item__history
+                    button.btn__edit.btn.btn--icon.btn--xs 
+                      i.fa-solid.fa-pen
+                    button.btn__del.btn.btn--icon.btn--xs 
+                      i.fa-solid.fa-trash-can
+                  //- ---- End nav of btns
+                
+
+                  //- variable and result
+                  .result__item__history 
+                    span.variable__item
+                    span.result__item
+                  
+                  //- ---- End result
+                  
+                  //- short note
+                  p.note__item__history
+                  
+                  //- ---- End note 
+                //- End li
+              //- End template
+            
+            //- ---- End ul
+
+          //- ---- End History
+
+        //- ---- End row
+
+      //- ---- End container
+
+    //- ---- End content__main
+
+  //- ---- End main
+  footer.footer.text--center
+    |2022 &copy; 
+    a(href="#") By Aiham Badran

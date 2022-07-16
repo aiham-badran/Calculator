@@ -1,0 +1,46 @@
+@use "sass:map";
+@use "sass:math";
+
+
+@mixin grid($grid) {
+  
+  .row{
+    display: flex;
+    flex-wrap: wrap;
+    padding: {
+      right: .5rem;
+      left: .5rem;
+    }
+  }
+
+  @if map-has-key($grid , "col"){
+    
+    $cols :map-get($grid, "col" );
+
+    @each $col in $cols {
+      .col-#{$col}{
+        $col: math.div(12,$col);
+        flex-basis: calc(100% / #{$col});
+        min-width: calc(100% / #{$col});
+      }
+    }
+  }
+
+
+  @if map-has-key($grid , "md"){
+    
+    $cols :map-get($grid, "md" );
+
+    @each $col in $cols {
+      @media (min-width: 768px) {
+        .col-md-#{$col}{
+          $col: math.div(12,$col);
+          flex-basis: calc(100% / #{$col});
+          min-width: calc(100% / #{$col});
+        }
+      }
+      
+    }
+  }
+
+}

@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+  block vars
+  head
+
+    //- get all meta tags from meta page 
+    include ./_meta
+    
+    //- the page title 
+    //- must be create var by name is title and set the title inside it   
+    title=title 
+
+    //- get all link tags form link page (css and font)
+    include ./_link
+  
+  body 
+    block body
+      //- get all script tag from script page
+      include ./_script
